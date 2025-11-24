@@ -1,10 +1,24 @@
 import axios from 'axios'
 import { buildFeatureVector } from './featureBuilder'
 
-// Use proxy in development to avoid CORS issues
-const API_BASE_URL = import.meta.env.DEV 
-  ? '/api'  // Use Vite proxy in development
-  : 'https://greengo-api-915779460150.us-east1.run.app'  // Direct URL in production
+const DIRECT_API_URL = 'https://greengo-api-915779460150.us-east1.run.app'
+const DEFAULT_PROXY = 'https://cors.isomorphic-git.org/'
+
+const resolveApiBase = () => {
+  if (import.meta.env.DEV) {
+    return '/api'
+  }
+
+  const envUrl = (import.meta.env.VITE_API_BASE_URL || '').trim()
+  if (envUrl) {
+    return envUrl
+  }
+
+  // Fallback for production deployments where the API blocks browser origins
+  return `${DEFAULT_PROXY}${DIRECT_API_URL}`
+}
+
+const API_BASE_URL = resolveApiBase()
 
 const api = axios.create({
   baseURL: API_BASE_URL,

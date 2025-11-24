@@ -104,6 +104,16 @@ https://greengo-api-915779460150.us-east1.run.app
 }
 ```
 
+### Deploying on Render / other static hosts
+
+The public API currently blocks browser origins, so production builds must call it through a CORS-friendly endpoint. Set the environment variable below on Render (or any static host) so the frontend uses a proxy:
+
+```
+VITE_API_BASE_URL=https://cors.isomorphic-git.org/https://greengo-api-915779460150.us-east1.run.app
+```
+
+For local development this is not required—the Vite dev server already proxies `/api` to the backend.
+
 ## Usage
 
 1. **Landing Page**: Start by clicking "Start Smart Drive"
@@ -155,4 +165,5 @@ This project is proprietary and confidential.
 - Leaflet for map functionality
 - The GreenGo API team for the ML model
 
+"# GreenGo" 
 "# GreenGo" 
