@@ -1,0 +1,17 @@
+{
+  "name": "greengo-proxy",
+  "version": "1.0.0",
+  "description": "Proxy server that forwards GreenGo frontend requests to the ML API with proper CORS headers.",
+  "type": "module",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.19.2",
+    "node-fetch": "^3.3.2"
+  }
+}
+

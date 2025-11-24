@@ -106,13 +106,26 @@ https://greengo-api-915779460150.us-east1.run.app
 
 ### Deploying on Render / other static hosts
 
-The public API currently blocks browser origins, so production builds must call it through a CORS-friendly endpoint. Set the environment variable below on Render (or any static host) so the frontend uses a proxy:
+The public API currently blocks browser origins, so production builds must call it through a CORS-friendly endpoint. Two options:
 
-```
-VITE_API_BASE_URL=https://cors.isomorphic-git.org/https://greengo-api-915779460150.us-east1.run.app
-```
+1. **Use the bundled proxy service (`proxy-server/`)**
+   - Deploy `proxy-server` as a Render Web Service (Node environment)
+   - Build command: `npm install`
+   - Start command: `npm start`
+   - Environment vars:
+     - `TARGET_API_URL=https://greengo-api-915779460150.us-east1.run.app`
+     - `ALLOWED_ORIGIN=https://greengo.onrender.com` (or `*` while testing)
+   - Render will expose a URL such as `https://greengo-proxy.onrender.com`. Set the static site env var:
+     ```
+     VITE_API_BASE_URL=https://greengo-proxy.onrender.com
+     ```
+
+2. **Bring your own proxy**
+   - Any server/service that adds permissive CORS headers can be used.
+   - Point `VITE_API_BASE_URL` at that proxy host.
 
 For local development this is not required—the Vite dev server already proxies `/api` to the backend.
+
 
 ## Usage
 
